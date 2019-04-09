@@ -324,7 +324,6 @@ public void disminuirEjemplares(BufferedReader in, PrintWriter out, String titul
 			try {
 				in = new BufferedReader(new FileReader("libros"));
 				out = new PrintWriter(new BufferedWriter(new FileWriter("librosTemporal")));
-				numEjemplares = contarEjemplares(in, out, tituloPedido);
 				while ((c = in.readLine())!=null) {					// c = 		isbn , titulo , autor , prestado , fecha
 					linea = c.substring(c.charAt(',')+1);			// linea =	titulo , autor , prestado , fecha
 					titulo = linea.substring(0, linea.charAt(','));	// titulo =	titulo
