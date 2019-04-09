@@ -288,8 +288,8 @@ public class GestorBibliotecario {
 				out = new PrintWriter(new BufferedWriter(new FileWriter("libros",true)));
 				in = new BufferedReader(new FileReader("libros"));
 				
-				while ((c = in.readLine())!=null && !encontrado) {						// c = 		isbn , titulo , autor , prestado , fecha
-					linea = c.substring(c.indexOf(',')+1);			// linea =	titulo , autor , prestado , fecha
+				while ((c = in.readLine())!=null && !encontrado) {		// c = 		isbn , titulo , autor , prestado , fecha
+					linea = c.substring(c.indexOf(',')+1);				// linea =	titulo , autor , prestado , fecha
 					titulo = linea.substring(0, linea.indexOf(','));	// titulo =	titulo
 					if (titulo.equalsIgnoreCase(tituloPedido)) {
 						principioLinea4 = c.substring(0,c.lastIndexOf(','));
@@ -383,15 +383,15 @@ public void disminuirEjemplares(BufferedReader in, PrintWriter out, String titul
 				}
 			}
 			
-			Path partida = FileSystems.getDefault().getPath("librosTemporal");
-			Path destino = FileSystems.getDefault().getPath("libros");
-			try {
-				Files.move(partida, destino, StandardCopyOption.REPLACE_EXISTING);
-			} catch (Exception e) {
-				
+				Path partida = FileSystems.getDefault().getPath("librosTemporal");
+				Path destino = FileSystems.getDefault().getPath("libros");
+				try {
+					Files.move(partida, destino, StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException e) {
+				System.out.println("Errrooooorrr"+e.getMessage());
 			}
-		
-	}
+			
+		}
 	
 	public int contarEjemplares(BufferedReader in, String tituloPedido) {
 		int numEjemplares=0;
