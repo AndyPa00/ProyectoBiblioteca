@@ -90,6 +90,7 @@ public class GestorUsuario {
 	public boolean devolverLibro(BufferedReader in, String title) {	// Faltan las excepciones de segun los dias que haya tardado
 		boolean devuelto=false;
 		String autor = "No tiene", titulo = "No existe", c, prestado, isbn="No tiene", date="Ninguna";
+		int diasDespues=0;
 		
 		try {
 			in = new BufferedReader(new FileReader("libros"));
@@ -131,19 +132,15 @@ public class GestorUsuario {
 					annoDif=Integer.parseInt(anno);
 					
 					if(fecha.getYear()>annoDif) {
-						
-					}else if(fecha.getYear()==annoDif) {
-						
-					}else {
-						
+						diasDespues+=(fecha.getYear()-annoDif)*360;
 					}
 					
-					if(fecha.getDayOfMonth()>Integer.parseInt(dia)){
-						diasDif=fecha.getDayOfMonth()-Integer.parseInt(dia);
-					}else {
-						if(fecha.getMonthValue()>Integer.parseInt(mes)) {
-							diasDif=fecha.getMonthValue()-Integer.parseInt(mes);
-						}
+					if(fecha.getMonthValue()>mesDif) {
+						diasDespues+=(fecha.getMonthValue()-mesDif)*30;
+					}
+					
+					if(fecha.getDayOfMonth()>diasDif) {
+						diasDespues+=(fecha.getDayOfMonth()-diasDif);
 					}
 				}
 			}
@@ -162,8 +159,16 @@ public class GestorUsuario {
 			}
 		}
 		if(devuelto) {
-			System.out.println("El libro " + titulo + " de " + autor + "con ISBN " + isbn + " ha sido devuelto tras ser prestado en la fecha"+date);
-			}
+			System.out.println("El libro " + titulo + " de " + autor + "con ISBN " + isbn + " ha sido devuelto tras ser prestado en la fecha"+date+" "+diasDespues+" dias despues");
+		}
+		
+		if(diasDespues>200) {
+			//Si es un cursor, es uno implicito
+			System.out.println("Este usuario ha sobrepasado la linea (se la ha jugao) asi que no podra volver a cojer libros en su vida");
+		}else if(diasDespues>15) {
+			System.out.println("Este usuario no va a poder tomar prestados mas libros hasta dentro de "+(diasDespues-15));
+		}
+		
 		return devuelto;
 	}
 	
