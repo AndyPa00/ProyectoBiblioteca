@@ -262,5 +262,133 @@ public class GestorBibliotecario {
 		apellido[12]="Megina";
 		return apellido[(int)(Math.random()*13)];
 	}
+	
+	public void aumentarEjemplares(BufferedReader in, PrintWriter out, String tituloPedido, int numAumento) {
+		String c, linea, titulo;
+		boolean encontrado=false;
+		String principioLinea3, principioLinea4;
+		
+		int numEjemplares = contarEjemplares(in, out, tituloPedido);
+		
+		if (numEjemplares!=0) {
+		
+			try {
+				in = new BufferedReader(new FileReader("libros"));
+				out = new PrintWriter(new BufferedWriter(new FileWriter("libros")));
+				
+				while ((c = in.readLine())!=null) {						// c = 		isbn , titulo , autor , prestado , fecha
+					while (encontrado) {
+						linea = c.substring(c.charAt(',')+1);			// linea =	titulo , autor , prestado , fecha
+						titulo = linea.substring(0, linea.charAt(','));	// titulo =	titulo
+						principioLinea4 = c.substring(0,c.lastIndexOf(','));
+						principioLinea3 = principioLinea4.substring(0,principioLinea4.lastIndexOf(','));
+						if (titulo.equalsIgnoreCase(tituloPedido)) {
+							for (int i=0;i<numAumento;i++) {
+								out.println(principioLinea3+","+false+"NO");
+								encontrado = true;
+							}
+						}
+					}
+				}
+				
+			} catch (FileNotFoundException e) {
+				System.out.println("No existe ningun libro");
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				if (in!=null) {
+					try {
+						in.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if (out!=null) {
+					out.close();
+				}
+			}
+		} else {
+			System.out.println("No se ha encontrado el libro");
+		}
+	}
+	
+public void disminuirEjemplares(BufferedReader in, PrintWriter out, String tituloPedido, int numDisminuciones) {
+		
+		int numEjemplares = contarEjemplares(in, out, tituloPedido);
+		
+		if (numEjemplares!=0) {
+			
+			String c, linea, titulo, principioLinea4, prestado;
+			int contador = 0;
+			
+			try {
+				in = new BufferedReader(new FileReader("libros"));
+				out = new PrintWriter(new BufferedWriter(new FileWriter("librosTemporal")));
+				numEjemplares = contarEjemplares(in, out, tituloPedido);
+				while ((c = in.readLine())!=null) {					// c = 		isbn , titulo , autor , prestado , fecha
+					linea = c.substring(c.charAt(',')+1);			// linea =	titulo , autor , prestado , fecha
+					titulo = linea.substring(0, linea.charAt(','));	// titulo =	titulo
+					principioLinea4 = c.substring(0,c.lastIndexOf(','));
+					prestado = principioLinea4.substring(principioLinea4.lastIndexOf(',')+1);
+					while (contador<numDisminuciones) {
+						if (titulo.equalsIgnoreCase(tituloPedido)) {
+							if (prestado.equalsIgnoreCase("true")) {
+								out.println(c);
+							} else {
+								contador++;
+							}
+						} else {
+							out.println(c);
+						}
+					}
+					out.println();
+				}
+			} catch (FileNotFoundException e) {
+				System.out.println("No existe ningun libro");
+			} catch (IOException e) {
+				System.out.println();
+			} finally {
+				if (in!=null) {
+					try {
+						in.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if (out!=null) {
+					out.close();
+				}
+			}
+			
+			Path partida = FileSystems.getDefault().getPath("librosTemporal");
+			Path destino = FileSystems.getDefault().getPath("libros");
+			try {
+				Files.move(partida, destino, StandardCopyOption.REPLACE_EXISTING);
+			} catch (Exception e) {
+				
+			}
+			
+		} else {
+			System.out.println("No se ha encontrado el libro");
+		}
+		
+	}
+	
+	public int contarEjemplares(BufferedReader in, PrintWriter out, String tituloPedido) {
+		int numEjemplares=0;
+		String c, linea, titulo;
+		try {
+			while ((c = in.readLine())!=null) {				// c = 		isbn , titulo , autor , prestado , fecha
+				linea = c.substring(c.charAt(',')+1);		// linea =	titulo , autor , prestado , fecha
+				titulo = linea.substring(0, c.charAt(','));	// titulo =	titulo
+				if (titulo.equalsIgnoreCase(tituloPedido)) {
+					numEjemplares++;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return numEjemplares;
+	}
 
 }
