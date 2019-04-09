@@ -117,15 +117,26 @@ public class GestorUsuario {
 						devuelto=true;
 					}
 				}
-				/////////////////////////////////////
+				//Comparo los dias
 				if(devuelto) {
 					int diasDif, mesDif, annoDif;
-					String dia, mes, anno;					// dd-mm-yyyy
+					String dia, mes, anno;						// dd-mm-yyyy
 					anno=date.substring(date.indexOf("-")+1);	// mm-yyyy
-					anno=anno.substring(anno.indexOf("-")+1);			// yyyy
+					anno=anno.substring(anno.indexOf("-")+1);		// yyyy
 					mes=date.substring(date.indexOf("-")+1);	// mm-yyyy
-					mes=mes.substring(0, mes.indexOf("-")+1);			// mm
+					mes=mes.substring(0, mes.indexOf("-")+1);		// mm
 					dia=date.substring(0, date.indexOf("-"));		// dd
+					diasDif=Integer.parseInt(dia);
+					mesDif=Integer.parseInt(mes);
+					annoDif=Integer.parseInt(anno);
+					
+					if(fecha.getYear()>annoDif) {
+						
+					}else if(fecha.getYear()==annoDif) {
+						
+					}else {
+						
+					}
 					
 					if(fecha.getDayOfMonth()>Integer.parseInt(dia)){
 						diasDif=fecha.getDayOfMonth()-Integer.parseInt(dia);
