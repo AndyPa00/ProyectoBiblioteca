@@ -245,31 +245,5 @@ public class GestorAdministrador {
 			}
 		}
 	}
-
-	/* 
-	do{
-		System.out.println("Nombre de usuario nuevo:");
-		usuario = teclado.nextLine();
-		int posicionUsuario=4;
-		while (!encontrado) {
-			r.seek(posicionUsuario);
-			usuarioEncontrado="";
-			for (int i = 0; i < 15; i++) {
-				usuarioEncontrado += r.readChar();
-			}
-			try {
-				usuarioEncontrado = usuarioEncontrado.substring(0, usuarioEncontrado.indexOf('$'));
-			} catch (Exception e) {
-				System.out.println();
-			}
-			if (usuarioEncontrado.equals(usuario)) {
-				encontrado = true;
-				System.out.println("Este nombre de usuario ya existe, por favor, introduzca otro");
-			}
-			posicionUsuario+=64;
-		}
-	} while (encontrado);
-	 
-	 */
 	
 }
