@@ -1,4 +1,4 @@
-package Bibliotecarios;
+package Biblioteca;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
@@ -20,10 +20,10 @@ public class Bibliotecario {
 			System.out.println("(3) Modificar el titulo de un libro");
 			System.out.println("(4) Aumentar el numero de ejemplares");
 			System.out.println("(5) Disminuir el numero de ejemplares");
+			opcion = Integer.parseInt(teclado.nextLine());
 			switch (opcion) {
 			case 1:
 				System.out.println("Introduce el título del libro que quieras dar de alta");
-				titulo=teclado.nextLine();
 				titulo=teclado.nextLine();
 				if(gestionar.darDeAlta(in, out, titulo)) {
 					System.out.println("El libro "+titulo+" ya se ha dado de alta");
@@ -34,7 +34,6 @@ public class Bibliotecario {
 			case 2:
 				System.out.println("Introduce el título del libro");
 				titulo=teclado.nextLine();
-				titulo=teclado.nextLine();
 				if(gestionar.darDeBaja(in, out, titulo)){
 					System.out.println("El libro se ha dado de baja");
 				}else {
@@ -44,9 +43,7 @@ public class Bibliotecario {
 			case 3:
 				System.out.println("Introduce el título del libro a cambiar");
 				titulo=teclado.nextLine();
-				titulo=teclado.nextLine();
 				System.out.println("Introduce el titulo por el que lo quieras cambiar");
-				tituloNuevo=teclado.nextLine();
 				tituloNuevo=teclado.nextLine();
 				if(gestionar.modificarTitulo(in, out, titulo, tituloNuevo)) {
 					System.out.println("El titulo se ha modificado");
@@ -58,18 +55,16 @@ public class Bibliotecario {
 			case 4:
 				System.out.println("Introduce el título del libro");
 				titulo=teclado.nextLine();
-				titulo=teclado.nextLine();
 				System.out.println("Introduce el número de ejemplares que quieras aumentar");
-				ejemplares=teclado.nextInt();
-				
+				ejemplares=Integer.parseInt(teclado.nextLine());
+				gestionar.aumentarEjemplares(in,out,titulo,ejemplares);
 				break;
 			case 5:
 				System.out.println("Introduce el título del libro");
 				titulo=teclado.nextLine();
-				titulo=teclado.nextLine();
 				System.out.println("Introduce el número de ejemplares que quieras disminuir");
-				ejemplares=teclado.nextInt();
-				
+				ejemplares=Integer.parseInt(teclado.nextLine());
+				gestionar.disminuirEjemplares(in,out,titulo,ejemplares);
 				break;
 			}
 		}
