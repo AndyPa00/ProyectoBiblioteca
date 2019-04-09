@@ -1,4 +1,4 @@
-package Biblioteca;
+package Bibliotecarios;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
