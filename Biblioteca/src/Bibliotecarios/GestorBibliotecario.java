@@ -64,14 +64,9 @@ public class GestorBibliotecario {
 	}
 
 	public boolean darDeAlta(BufferedReader in, PrintWriter out, String title) { // Devuelve true cuando se le da de alta
-		boolean noExiste=true;
 		
 		if(!existeElLibro(in, title)) {
-			noExiste=false;
-		}
-		
-		if(!noExiste) {
-			return !noExiste;
+			return false;
 		}
 		
 		try {
@@ -105,7 +100,7 @@ public class GestorBibliotecario {
 				}
 			}
 		}
-		return !noExiste;
+		return true;
 	}
 	
 	public boolean darDeBaja(BufferedReader in, PrintWriter out, String title) {

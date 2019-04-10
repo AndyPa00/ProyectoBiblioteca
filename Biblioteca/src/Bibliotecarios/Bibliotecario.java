@@ -28,7 +28,7 @@ public class Bibliotecario {
 				if(gestionar.darDeAlta(in, out, titulo)) {
 					System.out.println("El libro "+titulo+" ya se ha dado de alta");
 				}else {
-					System.out.println("El libro ya ha sido dado de alta antes");
+					System.out.println("El libro ya ha sido dado de alta antes o el fichero no esta creado");
 				}
 				break;
 			case 2:
